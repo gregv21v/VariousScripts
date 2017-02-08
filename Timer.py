@@ -55,7 +55,7 @@ def getLogFilename():
 #                                   and the current date.
 def updateLog(logFilename):
     # get the original information from the file
-    logRead = open("venezia9g-log.txt", "r")
+    logRead = open(logFilename, "r")
 
     lines = logRead.readlines()
     updatedLines = [
@@ -66,7 +66,7 @@ def updateLog(logFilename):
     logRead.close()
 
     # write the updated information to the file
-    logWrite = open("venezia9g-log.txt", "w")
+    logWrite = open(logFilename, "w")
 
     logWrite.write(updatedLines[0])
     logWrite.write(updatedLines[1])
