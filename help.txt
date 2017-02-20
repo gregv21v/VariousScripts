@@ -1,0 +1,8 @@
+exit         -- exits the program and updates your log file
+check        -- checks the amount of time you have for this session
+restart      -- restarts the timer from the beginning again
+takebreak    -- pauses your session so you can take a break
+commit (NYI) -- commits to your repo, you may need to setup
+                 your login credentials in a separate file.
+                 Make sure to keep them to yourself, and
+                 don't tell anyone.
