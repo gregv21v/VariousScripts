@@ -1,4 +1,7 @@
 exit         -- exits the program and updates your log file
+             -- before you exit you will have the opportunity
+             -- to split your time among multiple log files
+             -- if your repo has multiple users.
 check        -- checks the amount of time you have for this session
 restart      -- restarts the timer from the beginning again
 takebreak    -- pauses your session so you can take a break

@@ -3,11 +3,25 @@ import os
 
 # Get the name of the log file
 # in this repo.
-def getLogFilename():
+def getLogNames():
+    logNames = []
     # find the log file
     for fl in os.listdir(".."):
         if "-log" in fl:
-            return "../" + fl
+            logNames.append("../" + fl)
+
+    return logNames
+
+# Get the name of the log file
+# in this repo.
+def getUsernames():
+    logNames = []
+    # find the log file
+    for fl in os.listdir(".."):
+        if "-log" in fl:
+            logNames.append(fl[0:-len("-log.txt")])
+
+    return logNames
 
 
 # Update the contents of the log
@@ -17,7 +31,8 @@ def getLogFilename():
 #   logFilename is the name of the file where the user
 #       stores information about his current session.
 # Examples:
-#   updateLog("joeshmo-log.txt") => joe shmoes log file has
+#   updateLog("joeshmo-log.txt", {"hours" : 4, "minutes" : 20})
+#                                => joe shmoes log file has
 #                                   been update to the amount of
 #                                   times spent this sesssion
 #                                   and the current date.
@@ -32,8 +47,6 @@ def updateLog(logFilename, elapsedTime):
             + str(elapsedTime["minutes"]) + " minutes spent this session\n",
         currentTime.strftime("%Y-%m-%d") + "\n"
     ]
-
-    print(updatedLines)
 
     logRead.close()
 

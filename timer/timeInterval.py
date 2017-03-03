@@ -47,3 +47,41 @@ def getTimeIntervalDiff(a, b):
         newInterval["minutes"] += 60
 
     return newInterval
+
+
+## convertIntervalToMinutes:
+##  TimeInterval => Natural
+## GIVEN: a TimeInterval
+## RETURNS: the number of minutes
+##  in that time interval
+def convertIntervalToMinutes(interval):
+    return interval["hours"] * 60 + interval["minutes"]
+
+## convertMinutesToInterval:
+##  Natural => TimeInterval
+## GIVEN: a set of minutes
+## RETURNS: a time interval
+##  representing the number of minutes
+##  passed in
+def convertMinutesToInterval(minutes):
+    return {
+        "hours" : int(minutes / 60),
+        "minutes" : minutes - 60 * int(minutes / 60)
+    }
+
+
+
+## divideTime:
+##  TimeInterval Natural => TimeInterval
+## GIVEN: a TimeInterval interval, and a
+##  Natural number n
+## RETURNS: the same time interval with
+##  it's total time divided by n.
+## Note: Time for each interval will
+##  be even, so there might be time discarded
+##  by division
+def divideTime(interval, n):
+    # convert to minutes
+    minutes = convertIntervalToMinutes(interval)
+    newMinutes = int( minutes / n )
+    return convertMinutesToInterval(newMinutes)

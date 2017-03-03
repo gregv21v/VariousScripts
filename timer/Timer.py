@@ -15,11 +15,6 @@
 ##  otherwise it will interfere with the exit loop.
 ## TODO: (advanced) add the ability to automatically
 ##  commit to the repo.
-## TODO: add the ability to temporarily delete the
-##  the log file, so you can have multiple commits for a session
-##  not sure how useful this would be though, as you could just
-##  have smaller sessions
-
 
 #### Program Flow
 # After starting the program, it follows the following steps:
@@ -29,28 +24,44 @@
 #  2) store the difference in the username-log.txt file
 #  3) exit the program
 
+# Implementing multiple partners:
+# Multiple partners will have a list of
+# partners, and when program is exited
+# it will split the total time between all
+# the partners present at the coding session.
+
+# The partners can be determined by getting
+# their names from the log files.
+# Before exiting the program, the user can
+#  choose the user logs he wants to update.
+
+
+
 from logging import *
 from timeInterval import *
 from datetime import timedelta, datetime
 
-#1 save current time
+#1 Save current time
 startTime = datetime.now();
+
 
 cmd = ""
 
 #2 Loop unit you exit
 while(cmd != "exit"):
-    currentTime = datetime.now();
+    currentTime = datetime.now()
     cmd = raw_input(">>");
 
     if(cmd == "check"):
+        currentTime = datetime.now()
         timeElapsed = getTimeElapsed(startTime, currentTime)
         print("Hours: " + str(timeElapsed["hours"]) + "  Minutes: " + str(timeElapsed["minutes"]))
+
     elif(cmd == "takebreak"):
         startBreak = datetime.now()
 
         print("You are now on a break. When you want to finish this break")
-        print("enter the command end.")
+        print("type end.")
         inpt = raw_input(">>")
         while(inpt != "end"):
             inpt = raw_input(">>")
@@ -73,8 +84,31 @@ while(cmd != "exit"):
 
 currentTime = datetime.now();
 
+# Find the time elapsed
 timeElapsed = getTimeElapsed(startTime, currentTime)
 
-#2, 1 find the time elapsed
-#2, 2 Store the difference in the username-log.txt file
-updateLog(getLogFilename(), timeElapsed)
+
+# Choose the users that you want to update the logs
+#  for. If there is only one user, the logs will
+#  be updated automatically. If there are multiple
+#  users, you will have the option of choosing
+#  which users you want to include in the log.
+logs = getLogNames()
+if(len(logs) == 1):
+    updateLog(logs[0], timeElapsed)
+else:
+    # show a numbered list of log files
+    # and prompt the user for the ones
+    # he or she wants to select
+
+    for i in range(0, len(logs)):
+        print(i + ") " + logs[i])
+
+    print("Input the number for the users you")
+    print("would like to log time for. If you")
+    print("choose multiple users, the time will")
+    print("be split evenly among them.")
+    userIndices = raw_input(">").split(" ")
+
+    for i in userIndices:
+        updateLog(logs[i], divideTime(timeElapsed, len(userIndices)))
