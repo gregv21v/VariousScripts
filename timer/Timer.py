@@ -10,11 +10,15 @@
 #############################
 #### Additional Features ####
 #############################
-## TODO: add the ability to auto-update the log file
-##  every few seconds. This has to be done with threads
-##  otherwise it will interfere with the exit loop.
+## TODO: (intermediate) add the ability to auto-update
+##  your log file every few seconds. This has to be done
+##  with threads otherwise it will interfere with the command
+##  loop.
 ## TODO: (advanced) add the ability to automatically
-##  commit to the repo.
+##  commit to your repo.
+## TODO: (easy) add the ability to add time. It will be useful
+##  in those situations where you forget to start the
+##  program when you start working on the project
 
 #### Program Flow
 # After starting the program, it follows the following steps:
@@ -27,8 +31,9 @@
 # Implementing multiple partners:
 # Multiple partners will have a list of
 # partners, and when program is exited
-# it will split the total time between all
-# the partners present at the coding session.
+# or times are logged it will split
+# the total time between all the partners
+# present at the coding session.
 
 # The partners can be determined by getting
 # their names from the log files.
@@ -102,7 +107,7 @@ else:
     # he or she wants to select
 
     for i in range(0, len(logs)):
-        print(i + ") " + logs[i])
+        print(int(i) + ") " + logs[i])
 
     print("Input the number for the users you")
     print("would like to log time for. If you")
@@ -110,5 +115,8 @@ else:
     print("be split evenly among them.")
     userIndices = raw_input(">").split(" ")
 
-    for i in userIndices:
-        updateLog(logs[i], divideTime(timeElapsed, len(userIndices)))
+    for i in xrange(0, len(logs)):
+        if(i in userIndices):
+            updateLog(logs[i], divideTime(timeElapsed, len(userIndices)))
+        else:
+            updateLog(logs[i], {"hours" : 0, "minutes" : 0})
