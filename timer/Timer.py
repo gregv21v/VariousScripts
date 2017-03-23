@@ -1,6 +1,6 @@
 ########################################################
-# This program is a simple convient way to update your #
-# log file. All you need to do is start it up when you #
+# This program is a convient way to update your log    #
+# file. All you need to do is start it up when you     #
 # start a session, then type the command "exit" in the #
 # terminal when you want to exit. After that, your log #
 # file will be updated with all the relavent details.  #
@@ -91,6 +91,7 @@ currentTime = datetime.now();
 
 # Find the time elapsed
 timeElapsed = getTimeElapsed(startTime, currentTime)
+print("Hours: " + str(timeElapsed["hours"]) + "  Minutes: " + str(timeElapsed["minutes"]))
 
 
 # Choose the users that you want to update the logs
@@ -107,13 +108,16 @@ else:
     # he or she wants to select
 
     for i in range(0, len(logs)):
-        print(int(i) + ") " + logs[i])
+        print(str(i) + ") " + logs[i])
 
     print("Input the number for the users you")
     print("would like to log time for. If you")
     print("choose multiple users, the time will")
     print("be split evenly among them.")
     userIndices = raw_input(">").split(" ")
+    userIndices = map(int, userIndices)
+
+
 
     for i in xrange(0, len(logs)):
         if(i in userIndices):
